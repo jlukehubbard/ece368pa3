@@ -1,7 +1,7 @@
 #include "grid.h"
 
 Grid *readGridFromFile(char *binaryGridFilename) {
-    FILE *fp = fopen(binaryGridFilename, "rb");
+    FILE *fp = fopen(binaryGridFilename, "r");
     if (!fp) {
         fprintf(stderr, "can't open %s: %s\n", binaryGridFilename, strerror(errno));
     }
