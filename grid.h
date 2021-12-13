@@ -4,7 +4,8 @@
 #include <stdio.h>
 #include <limits.h>
 #include <stdlib.h>
-#include <stderr.h>
+#include <errno.h>
+#include <string.h>
 
 typedef struct {
     short rows;
