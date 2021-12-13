@@ -2,6 +2,9 @@
 
 Grid *readGridFromFile(char *binaryGridFilename) {
     FILE *fp = fopen(binaryGridFilename, "rb");
+    if (!fp) {
+        fprintf(stderr, "can't open %s: %s\n", binaryGridFilename, strerror(errno));
+    }
 
     //Read grid size
     short m, n;
