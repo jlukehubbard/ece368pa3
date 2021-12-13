@@ -1,5 +1,4 @@
 #include "grid.h"
-#include "limits.h"
 
 Grid *readGridFromFile(char *binaryGridFilename) {
     FILE *fp = fopen(binaryGridFilename, "rb");
