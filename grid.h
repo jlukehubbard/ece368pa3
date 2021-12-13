@@ -7,7 +7,7 @@
 
 typedef struct {
     short rows;
-    short columns;
+    short cols;
     short **array;
 } Grid;
 

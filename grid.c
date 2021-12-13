@@ -12,11 +12,11 @@ Grid *readGridFromFile(char *binaryGridFilename) {
 
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
-            fread(array[i][j], sizeof(short), 1, fp);
+            fread(&array[i][j], sizeof(short), 1, fp);
         }
     }
 
-    Grid *newGrid = malloc(sizeof Grid);
+    Grid *newGrid = malloc(sizeof(Grid));
     newGrid -> rows = m;
     newGrid -> cols = n;
     newGrid -> array = array;
