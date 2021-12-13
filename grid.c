@@ -5,14 +5,14 @@ Grid *readGridFromFile(char *binaryGridFilename) {
 
     //Read grid size
     short m, n;
-    fread(&m, sizeof short, 1, fp);
-    fread(&n, sizeof short, 1, fp);
+    fread(&m, sizeof(short), 1, fp);
+    fread(&n, sizeof(short), 1, fp);
 
-    short **array = malloc((m * n) * sizeof short);
+    short **array = malloc((m * n) * sizeof(short));
 
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
-            fread(array[i][j], sizeof short, 1, fp);
+            fread(array[i][j], sizeof(short), 1, fp);
         }
     }
 
