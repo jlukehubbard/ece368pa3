@@ -7,10 +7,17 @@
 #include <errno.h>
 #include <string.h>
 
+typedef enum{
+    WHITE,
+    GRAY,
+    BLACK
+} CellColor;
+
 typedef struct {
     short row;
     short col;
     short key;
+    CellColor color;
 } Cell;
 
 typedef struct {
@@ -25,6 +32,7 @@ Grid *readGridFromFile(char *binaryGridFilename);
 void printGrid(Grid *grid, FILE *stream);
 Grid *newGrid(short rows, short cols);
 Cell *cellDeref(Grid *grid, short row, short col);
+void freeGrid(Grid *grid);
 
 
 #endif

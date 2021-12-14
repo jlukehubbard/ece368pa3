@@ -51,6 +51,8 @@ int main(int argc, char **argv) {
 
     printGrid(outGrid, stdout);
 
+    freeGrid(outGrid);
+
     #endif
     return EXIT_SUCCESS;
 }

@@ -25,6 +25,8 @@ Grid *readGridFromFile(char *binaryGridFilename) {
         }
     }
 
+    free(fp);
+
     return new;
 }
 
@@ -63,6 +65,7 @@ Grid *newGrid(short rows, short cols) {
             Cell *into = cellDeref(new, i, j);
             into -> row = i;
             into -> col = j;
+            into -> color = WHITE;
         }
     }
 
@@ -73,4 +76,11 @@ Grid *newGrid(short rows, short cols) {
 
 Cell *cellDeref(Grid *grid, short row, short col) {
     return &(grid -> cells)[(grid -> cols) * row + col];
+}
+
+
+
+void freeGrid(Grid *grid) {
+    free(grid -> cells);
+    free(grid);
 }
