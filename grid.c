@@ -81,6 +81,5 @@ Cell *cellDeref(Grid *grid, short row, short col) {
 
 
 void freeGrid(Grid *grid) {
-    free(grid -> cells);
     free(grid);
 }
