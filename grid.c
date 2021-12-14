@@ -18,7 +18,7 @@ Grid *readGridFromFile(char *binaryGridFilename) {
 
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
-            numRead = fread(&((*array)[(n * i) + j], sizeof(short), 1, fp);
+            numRead = fread(&((*array)[(n * i) + j]), sizeof(short), 1, fp);
             if (numRead != 1) {return NULL;}
         }
     }
