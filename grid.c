@@ -37,7 +37,7 @@ void printGrid(Grid *grid, FILE *stream) {
     //print content
     for (i = 0; i < grid -> rows; i++) {
         for (j = 0; j < grid -> cols; j++) {
-            Cell *outof = &(grid -> cells)[(grid -> cols) * i + j];
+            Cell *outof = cellDeref(grid, i, j);
             fprintf(stream, "%hd", outof -> key);
             if (j == (grid -> cols) - 1) { 
                 fprintf(stream, "\n");
@@ -49,11 +49,25 @@ void printGrid(Grid *grid, FILE *stream) {
 }
 
 
+
 Grid *newGrid(short rows, short cols) {
     Grid *new = malloc(sizeof(Grid));
     new -> rows = rows;
     new -> cols = cols;
     new -> cells = malloc((rows * cols) * sizeof(Cell));
 
+    for(i = 0; i < (new -> rows); i++) {
+        for (j = 0; j < (new -> cols); j++) {
+            Cell *into = cellDeref(new, i, j);
+            fread(&(into -> key), sizeof(short), 1, fp);
+        }
+    }
+
     return new;
+}
+
+
+
+Cell *cellDeref(Grid *grid, short row, short col) {
+    return &(grid -> cells)[(grid -> cols) * row + col];
 }

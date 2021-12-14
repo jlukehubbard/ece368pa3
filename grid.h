@@ -24,6 +24,7 @@ typedef struct {
 Grid *readGridFromFile(char *binaryGridFilename);
 void printGrid(Grid *grid, FILE *stream);
 Grid *newGrid(short rows, short cols);
+Cell *cellDeref(Grid *grid, short row, short col);
 
 
 #endif
