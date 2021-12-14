@@ -8,15 +8,22 @@
 #include <string.h>
 
 typedef struct {
+    short row;
+    short col;
+    short key;
+} Cell;
+
+typedef struct {
     short rows;
     short cols;
-    short *(*array);
+    Cell *cells;
 } Grid;
 
 
 
 Grid *readGridFromFile(char *binaryGridFilename);
 void printGrid(Grid *grid, FILE *stream);
+Grid *newGrid(short rows, short cols);
 
 
 #endif

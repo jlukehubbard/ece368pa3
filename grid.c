@@ -14,31 +14,29 @@ Grid *readGridFromFile(char *binaryGridFilename) {
     numRead = fread(&n, sizeof(short), 1, fp);
     if (numRead != 1) {return NULL;}
 
-    short (*array)[m][n];
+    Grid *new = newGrid(m, n);
 
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            numRead = fread(&((*array)[i][j]), sizeof(short), 1, fp);
-            if (numRead != 1) {return NULL;}
+    int i,j;
+
+    for(i = 0; i < (new -> rows); i++) {
+        for (j = 0; j < (new -> cols); j++) {
+            fread(&((new -> cells)[((new -> cols) * i) + j]), sizeof(short), 1, fp);
         }
     }
 
-    Grid *newGrid = malloc(sizeof(Grid));
-    newGrid -> rows = m;
-    newGrid -> cols = n;
-    newGrid -> array = array;
-
-    return newGrid;
+    return new;
 }
 
 void printGrid(Grid *grid, FILE *stream) {
     //print shape
     fprintf(stream, "%hd %hd\n", grid -> rows, grid -> cols);
 
+    int i,j;
+
     //print content
-    for (int i = 0; i < grid -> rows; i++) {
-        for (int j = 0; j < grid -> cols; j++) {
-            fprintf(stream, "%hd", (*(grid -> array))[i][j]);
+    for (i = 0; i < grid -> rows; i++) {
+        for (j = 0; j < grid -> cols; j++) {
+            fprintf(stream, "%hd", (grid -> cells)[(grid -> cols) * i + j]);
             if (j == (grid -> cols) - 1) { 
                 fprintf(stream, "\n");
                 break;
@@ -46,4 +44,14 @@ void printGrid(Grid *grid, FILE *stream) {
             fprintf(stream, " ");
         }
     }
+}
+
+
+Grid *newGrid(short rows, short cols) {
+    Grid *new = malloc(sizeof(Grid));
+    new -> rows = rows;
+    new -> cols = cols;
+    new -> cells = malloc((rows * cols) * sizeof(Cell));
+
+    return new;
 }
