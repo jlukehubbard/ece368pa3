@@ -15,9 +15,10 @@ int main(int argc, char **argv) {
     char *fastestTimesFilename = argv[3];
     char *fastestPathFilename = argv[4];
     #endif
-    
 
-    #define TESTQUEUE2D
+
+
+    //#define TESTQUEUE2D
     #ifdef TESTQUEUE2D
     Queue2D *testQ = newQueue2D();
 
@@ -32,9 +33,20 @@ int main(int argc, char **argv) {
     }
     
     freeQueue2D(testQ);
-
-
     #endif
 
+
+
+    #define TESTARRLOAD
+    #ifdef TESTARRLOAD
+
+    if (argc != 2) {
+        fprintf(stdout, "bad arguments");
+        return EXIT_FAILURE;
+    }
+
+    
+
+    #endif
     return EXIT_SUCCESS;
 }

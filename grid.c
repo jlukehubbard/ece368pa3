@@ -14,11 +14,11 @@ Grid *readGridFromFile(char *binaryGridFilename) {
     numRead = fread(&n, sizeof(short), 1, fp);
     if (numRead != 1) {return NULL;}
 
-    short **array = malloc((m*n) * sizeof(short));
+    short ***array = malloc((m*n) * sizeof(short));
 
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
-            numRead = fread(&((*array)[(n * i) + j]), sizeof(short), 1, fp);
+            numRead = fread(&((*array)[i][j]), sizeof(short), 1, fp);
             if (numRead != 1) {return NULL;}
         }
     }
