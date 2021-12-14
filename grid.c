@@ -38,7 +38,7 @@ void printGrid(Grid *grid, FILE *stream) {
     //print content
     for (int i = 0; i < grid -> rows; i++) {
         for (int j = 0; j < grid -> cols; j++) {
-            fprintf(stream, "%hd", (grid -> array) [i][j]);
+            fprintf(stream, "%hd", (*(grid -> array))[i][j]);
             if (j == (grid -> cols) - 1) { 
                 fprintf(stream, "\n");
                 break;
