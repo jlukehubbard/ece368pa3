@@ -14,7 +14,7 @@ Grid *readGridFromFile(char *binaryGridFilename) {
     numRead = fread(&n, sizeof(short), 1, fp);
     if (numRead != 1) {return NULL;}
 
-    short ***array = malloc((m*n) * sizeof(short));
+    short (*array)[m][n];
 
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
