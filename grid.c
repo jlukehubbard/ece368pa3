@@ -56,10 +56,13 @@ Grid *newGrid(short rows, short cols) {
     new -> cols = cols;
     new -> cells = malloc((rows * cols) * sizeof(Cell));
 
+    int i,j;
+
     for(i = 0; i < (new -> rows); i++) {
         for (j = 0; j < (new -> cols); j++) {
             Cell *into = cellDeref(new, i, j);
-            fread(&(into -> key), sizeof(short), 1, fp);
+            into -> row = i;
+            into -> col = j;
         }
     }
 
