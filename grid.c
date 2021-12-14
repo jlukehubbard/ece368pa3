@@ -20,7 +20,8 @@ Grid *readGridFromFile(char *binaryGridFilename) {
 
     for(i = 0; i < (new -> rows); i++) {
         for (j = 0; j < (new -> cols); j++) {
-            fread(&((new -> cells)[((new -> cols) * i) + j]), sizeof(short), 1, fp);
+            Cell *into = (new -> cells)[(new -> cols) * i + j];
+            fread(into -> key, sizeof(short), 1, fp);
         }
     }
 
@@ -36,7 +37,8 @@ void printGrid(Grid *grid, FILE *stream) {
     //print content
     for (i = 0; i < grid -> rows; i++) {
         for (j = 0; j < grid -> cols; j++) {
-            fprintf(stream, "%hd", (grid -> cells)[(grid -> cols) * i + j]);
+            Cell *outof = (grid -> cells)[(grid -> cols) * i + j];
+            fprintf(stream, "%hd", outof -> key);
             if (j == (grid -> cols) - 1) { 
                 fprintf(stream, "\n");
                 break;
