@@ -21,7 +21,7 @@ Grid *readGridFromFile(char *binaryGridFilename) {
     for(i = 0; i < (new -> rows); i++) {
         for (j = 0; j < (new -> cols); j++) {
             Cell *into = &(new -> cells)[(new -> cols) * i + j];
-            fread(into -> key, sizeof(short), 1, fp);
+            fread(&(into -> key), sizeof(short), 1, fp);
         }
     }
 
