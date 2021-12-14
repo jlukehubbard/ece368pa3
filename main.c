@@ -31,8 +31,7 @@ int main(int argc, char **argv) {
         fprintf(stdout, "(%d, %d)\n", points[i][0], points[i][1]);
     }
     
-
-    
+    freeQueue2D(testQ);
 
 
     #endif
