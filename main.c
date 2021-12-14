@@ -25,7 +25,14 @@ int main(int argc, char **argv) {
     enqueue2D(testQ, 1, 1);
     enqueue2D(testQ, 4, 4);
 
-    fprintf(stdout, "%d %d %d\n", dequeue2D(testQ), dequeue2D(testQ), dequeue2D(testQ));
+    short points[3][2];
+    for (int i = 0; i < 3; i++) {
+        dequeue2D(testQ, &(points[i][0]), &(points[i][1]));
+        fprintf(stdout, "(%d, %d)\n", points[i][0], points[i][1]);
+    }
+    
+
+    
 
 
     #endif
