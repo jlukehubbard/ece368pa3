@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "queue.h"
+#include "grid.h"
 
 
 int main(int argc, char **argv) {
@@ -45,7 +46,10 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
     }
 
-    
+    char *binaryGridFilename = argv[1];
+    Grid *outGrid = readGridFromFile(binaryGridFilename);
+
+    printGrid(outGrid, stdout);
 
     #endif
     return EXIT_SUCCESS;
