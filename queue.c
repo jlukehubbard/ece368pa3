@@ -40,6 +40,12 @@ void freeQueue(Queue *queue) {
     free(queue);
 }
 
+bool isEmpty(Queue *queue) {
+    return (bool) !(queue -> head);
+}
+
+
+
 //2D Queue
 
 Queue2D *newQueue2D() {
@@ -68,4 +74,60 @@ void freeQueue2D(Queue2D *queue) {
     freeQueue(queue -> row);
     freeQueue(queue -> col);
     free(queue);
+}
+
+bool isEmpty2D(Queue2D *queue) {
+    return (isEmpty(queue -> row) || isEmpty(queue -> col));
+}
+
+//Cell Queue
+
+QueueCell *newQueueCell(Grid *grid) {
+    if (!grid) {
+        return NULL;
+    }
+    QueueCell *new = malloc(sizeof(QueueCell));
+    new -> head = new -> tail = NULL;
+    new -> grid = grid;
+
+    return new;
+}
+
+void enqueueCell(QueueCell *queue, Cell *cell) {
+    if ((cell -> color != WHITE) || !queue) {
+        return;
+    }
+
+    QueueNodeCell *new = malloc(sizeof(QueueNodeCell));
+
+    new -> cell = cell;
+    new -> next = NULL;
+
+    if (isEmptyCell(queue)) {
+        queue -> head = queue -> tail = new;
+    } else {
+        (queue -> tail) -> next = new;
+        queue -> tail = (queue -> tail) -> next;
+    }
+}
+
+Cell *dequeueCell(QueueCell *queue) {
+    if (!queue || isEmptyCell(queue)) {
+        return NULL;
+    }
+
+    QueueNodeCell *tmp = queue -> head;
+    Cell *ret = tmp -> cell;
+    queue -> head = tmp -> next;
+    free(tmp);
+
+    return ret;
+}
+
+void enqueueNeighbors(QueueCell *queue, Cell *cell) {
+
+}
+
+bool isEmptyCell(QueueCell *queue) {
+    return (bool) !(queue -> head);
 }

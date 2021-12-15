@@ -21,7 +21,7 @@ Grid *readGridFromFile(char *binaryGridFilename) {
     for(i = 0; i < (new -> rows); i++) {
         for (j = 0; j < (new -> cols); j++) {
             Cell *into = &(new -> cells)[(new -> cols) * i + j];
-            fread(&(into -> key), sizeof(short), 1, fp);
+            fread(&(into -> cost), sizeof(short), 1, fp);
         }
     }
 
@@ -40,7 +40,7 @@ void printGrid(Grid *grid, FILE *stream) {
     for (i = 0; i < grid -> rows; i++) {
         for (j = 0; j < grid -> cols; j++) {
             Cell *outof = cellDeref(grid, i, j);
-            fprintf(stream, "%hd", outof -> key);
+            fprintf(stream, "%hd", outof -> cost);
             if (j == (grid -> cols) - 1) { 
                 fprintf(stream, "\n");
                 break;
@@ -49,8 +49,6 @@ void printGrid(Grid *grid, FILE *stream) {
         }
     }
 }
-
-
 
 Grid *newGrid(short rows, short cols) {
     Grid *new = malloc(sizeof(Grid));
@@ -66,21 +64,41 @@ Grid *newGrid(short rows, short cols) {
             into -> row = i;
             into -> col = j;
             into -> color = WHITE;
+            into -> prev = NULL;
+            into -> enterTime = SHRT_MAX;
+            into -> exitTime = SHRT_MAX;
         }
     }
 
     return new;
 }
 
-
-
 Cell *cellDeref(Grid *grid, short row, short col) {
     return &(grid -> cells)[(grid -> cols) * row + col];
 }
 
-
-
 void freeGrid(Grid *grid) {
     free(grid -> cells);
     free(grid);
+}
+
+void BFS(Grid *grid, short row, short col) {
+    Queue2D *points = malloc(sizeof(Queue2D));
+    enqueueCell(points, grid, row, col);
+    Cell *curr;
+    short time = 0;
+
+    while (!isEmpty2D(points)) {
+        curr -> enterTime = time;
+        time += 
+        curr -> exitTime = 
+        curr = dequeueCell(points, grid);
+        enqueueNeighbors(points, grid, curr);
+
+    }
+    
+}
+
+void bfs(Grid *grid, Queue2D *queue, short row, short col) {
+    
 }

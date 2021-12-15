@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
 
 
 
-    #define TESTARRLOAD
+    //#define TESTARRLOAD
     #ifdef TESTARRLOAD
 
     if (argc != 2) {
@@ -54,5 +54,17 @@ int main(int argc, char **argv) {
     freeGrid(outGrid);
 
     #endif
+
+
+
+    #define TESTBFS
+    #ifdef TESTBFS
+
+    
+
+    #endif
+
+
+
     return EXIT_SUCCESS;
 }
