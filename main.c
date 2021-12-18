@@ -220,7 +220,7 @@ bool getDimensions(short *dim[2], FILE *binfile) {
 
     IGNORE_RETURN fseek(binfile, 0, SEEK_SET);
 
-    return (bool) fread(*dim, sizeof(short), 2, binfile);
+    return (bool) fread(dim, sizeof(short), 2, binfile);
 }
 
 bool fillGraph(short **G, short *dim[2], FILE *binfile) {
