@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <string.h>
 
 #include "queue.h"
 #include "grid.h"
@@ -175,7 +174,7 @@ void fprintGraph(FILE *stream, short **G, short *dim[2]) {
 
             currCell = coordConvert(dim, i, j);
 
-            fprintf(stream, "%hd", G[currCell]);
+            fprintf(stream, "%hd", (short) G[currCell]);
             if (j == (*dim)[1] - 1) {
                 fprintf(stream, "\n");
                 break;
