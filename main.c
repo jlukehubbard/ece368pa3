@@ -165,13 +165,14 @@ void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr
     int n = dimToCount(dim), minDist, next;
     CellColor *color = malloc(n * sizeof(CellColor));
 
-    (*distArr)[source] = (*G)[source];
-
     for (size_t i = 0; i < n; i++) {
         (*distArr)[i] = (*CA)[getSquareIndex(n, source, i)];
         (*predArr)[i] = source;
         color[i] = WHITE;
     }
+
+    (*distArr)[source] = 0;
+
 
     for (size_t i = 0; i < (n-2); i++) {
         minDist = INT_MAX;
