@@ -236,6 +236,9 @@ bool fillCostAdj(short **CA, short *dim[2], short **G) {
                             (*CA)[getSquareIndex(n, i, j)] = (*G)[j];
                             break;
                     }
+                    break;
+                default:
+                    (*CA)[getSquareIndex(n, i, j)] = SHRT_MAX;
             }
         }
     }
