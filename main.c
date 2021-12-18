@@ -147,6 +147,7 @@ int main(int argc, char **argv) {
         predecessorArrays[i] = malloc(n * sizeof(int));
         dijkstra(G, dim, CA, &distanceArrays[i], &predecessorArrays[i], i);
         fprintIntGraph(stdout, &distanceArrays[i], dim);
+        fprintIntGraph(stdout, &predecessorArrays[i], dim);
     }
 
     /**/
