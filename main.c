@@ -284,7 +284,12 @@ void fprintIntGraph(FILE *stream, int **G, short *dim[2]) {
 
             currCell = getIndex(dim, i, j);
 
-            fprintf(stream, "%d", (*G)[currCell]);
+            if((*G)[currCell] != INT_MAX) {
+                fprintf(stream, "%3d", (*G)[currCell]);
+            } else {
+                fprintf(stream, "inf");
+            }
+
             if (j == (*dim)[1] - 1) {
                 fprintf(stream, "\n");
                 break;
