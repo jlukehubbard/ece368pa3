@@ -312,7 +312,7 @@ bool fillCostAdj(short **CA, short *dim[2], short **G) {
                             (*CA)[getSquareIndex(n, i, j)] = (*G)[j];
                             break;
                     }
-                    break;
+                    goto infty;
                 case -1:
                 case 1:
                     switch(toCol - fromCol) {
@@ -324,6 +324,7 @@ bool fillCostAdj(short **CA, short *dim[2], short **G) {
                     }
                     break;
                 default:
+                    infty:
                     (*CA)[getSquareIndex(n, i, j)] = SHRT_MAX;
             }
         }
