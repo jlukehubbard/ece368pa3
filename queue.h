@@ -7,6 +7,10 @@
 
 #include "grid.h"
 
+#ifndef IGNORE_RESULT
+#define IGNORE_RESULT (void) !
+#endif
+
 typedef struct qnode {
     short key;
     struct qnode *next;

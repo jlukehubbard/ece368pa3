@@ -33,9 +33,8 @@ short dequeue(Queue *queue) {
 }
 
 void freeQueue(Queue *queue) {
-    short tmp;
     while (queue -> head) {
-        tmp = dequeue(queue);
+        IGNORE_RESULT dequeue(queue);
     }
     free(queue);
 }
