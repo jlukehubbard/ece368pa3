@@ -173,8 +173,8 @@ void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr
         minDist = INT_MAX;
 
         for (size_t j = 0; j < n; j++) {
-            if (distArr[i] < minDist && color[i] == WHITE) {
-                minDist = distArr[i];
+            if ((*distArr)[i] < minDist && color[i] == WHITE) {
+                minDist = (*distArr)[i];
                 next = i;
             }
         }
@@ -183,9 +183,9 @@ void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr
 
         for (size_t j = 0; j < n; j++) {
             if (color[i] == WHITE) {
-                if (distArr[next] + (*CA)[getSquareIndex(n, next, i)] < distArr[i]) {
-                    distArr[i] = distArr[next] + (*CA)[getSquareIndex(n, next, i)];
-                    predArr[i] = next;
+                if ((*distArr)[next] + (*CA)[getSquareIndex(n, next, i)] < (*distArr)[i]) {
+                    (*distArr)[i] = (*distArr)[next] + (*CA)[getSquareIndex(n, next, i)];
+                    (*predArr)[i] = next;
                 }
             }
         }
