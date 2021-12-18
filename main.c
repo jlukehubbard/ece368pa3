@@ -116,12 +116,15 @@ int main(int argc, char **argv) {
     //IGNORE_RETURN fprintf(stdout, "%hd %hd\n", (*dim)[0], (*dim)[1]);
 
     short n = ((*dim)[0] * (*dim)[1]);
-    short **inGraph = malloc(n * sizeof(short));
-    short **costAdjMatrix = malloc(n * n * sizeof(short));
+    short *inGraph = malloc(n * sizeof(short));
+    short *costAdjMatrix = malloc(n * n * sizeof(short));
+
+    short **G = &inGraph;
+    short **CA = &costAdjMatrix;
 
     fillGraph(inGraph, dim, binfile);
-    fprintGraph(stdout, inGraph, dim);
-    fillCostAdj(costAdjMatrix, dim, inGraph);
+    fprintGraph(stdout, G, dim);
+    fillCostAdj(CA, dim, G);
 
     #endif
 
@@ -154,7 +157,7 @@ bool fillGraph(short **G, short *dim[2], FILE *binfile) {
 
             currCell = coordConvert(dim, i, j);
 
-            fread(&(G[currCell]), sizeof(short), 1, binfile);
+            fread(&((*G)[currCell]), sizeof(short), 1, binfile);
         }
     }
 
@@ -174,7 +177,7 @@ void fprintGraph(FILE *stream, short **G, short *dim[2]) {
 
             currCell = coordConvert(dim, i, j);
 
-            fprintf(stream, "%hd", (short) G[currCell]);
+            fprintf(stream, "%hd", (*G)[currCell]);
             if (j == (*dim)[1] - 1) {
                 fprintf(stream, "\n");
                 break;
