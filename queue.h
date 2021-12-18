@@ -35,10 +35,4 @@ void dequeue2D(Queue2D *queue, short *row, short *col);
 void freeQueue2D(Queue2D *queue);
 bool isEmpty2D(Queue2D *queue);
 
-QueueCell *newQueueCell(Grid *grid);
-void enqueueCell(QueueCell *queue, Cell *cell);
-Cell *dequeueCell(QueueCell *queue);
-void enqueueNeighbors(QueueCell *queue, Cell *cell);
-bool isEmptyCell(QueueCell *queue);
-
 #endif
