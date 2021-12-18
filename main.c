@@ -114,7 +114,7 @@ int main(int argc, char **argv) {
 
     short n = ((*dim)[0] * (*dim)[1]);
     short **inGraph = malloc(n * sizeof(short));
-    short *costAdjMatrix = malloc(n * n * sizeof(short));
+    //short *costAdjMatrix = malloc(n * n * sizeof(short));
 
     fillGraph(inGraph, dim, binfile);
     fprintGraph(stdout, inGraph, dim);
