@@ -259,7 +259,7 @@ void fprintSquareGraph(FILE *stream, short **CA, int n) {
             currCell = getSquareIndex(n, i, j);
 
             if((*CA)[currCell] != SHRT_MAX) {
-                fprintf(stream, "%hd", (*CA)[currCell]);
+                fprintf(stream, "%3hd", (*CA)[currCell]);
             } else {
                 fprintf(stream, "inf");
             }
