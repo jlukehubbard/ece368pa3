@@ -11,15 +11,17 @@
 
 
 
-int getIndex(int *dim[2], short row, short column);
+int getIndex(short *dim[2], short row, short column);
+int getSquareIndex(int n, short row, short column);
 int dimToCount(short *dim[2]);
 int getRow(short *dim[2], int index);
 int getCol(short *dim[2], int index);
 
 bool getDimensions(short *dim[2], FILE *binfile);
 bool fillGraph(short **G, short *dim[2], FILE *binfile);
-void fprintGraph(FILE *stream, short **G, int *dim[2]);
+void fprintGraph(FILE *stream, short **G, short *dim[2]);
 bool fillCostAdj(short **CA, short *dim[2], short **G);
+void fprintSquareGraph(FILE *stream, short **CA, int n);
 
 
 
@@ -119,9 +121,6 @@ int main(int argc, char **argv) {
     //IGNORE_RETURN fprintf(stdout, "%hd %hd\n", (*dim)[0], (*dim)[1]);
 
     int n = dimToCount(dim);
-    int *ntwice = malloc(2*sizeof(int));
-    ntwice[0] = ntwice[1] = n;
-    int **CAdim = &ntwice;
     short *inGraph = malloc(n * sizeof(short));
     short *costAdjMatrix = malloc(n * n * sizeof(short));
 
@@ -130,8 +129,8 @@ int main(int argc, char **argv) {
 
     fillGraph(G, dim, binfile);
     fprintGraph(stdout, G, dim);
-    //fillCostAdj(CA, dim, G);
-    fprintGraph(stdout, CA, CAdim);
+    fillCostAdj(CA, dim, G);
+    fprintSquareGraph(stdout, CA, n);
 
 
     #endif
@@ -144,6 +143,10 @@ int main(int argc, char **argv) {
 
 int getIndex(int *dim[2], short row, short column) {
     return ((*dim)[1] * row) + column;
+}
+
+int getSquareIndex(int n, short row, short column) {
+    return (n * row) + column;
 }
 
 int getRow(short *dim[2], int index){
@@ -211,7 +214,6 @@ void fprintGraph(FILE *stream, short **G, short *dim[2]) {
 bool fillCostAdj(short **CA, short *dim[2], short **G) {
 
     int n = dimToCount(dim);
-    int *CAdim[2] = {n, n};
     int i, j;
     short fromRow, fromCol, toRow, toCol;
 
@@ -241,6 +243,27 @@ bool fillCostAdj(short **CA, short *dim[2], short **G) {
     return true;
 }
 
+void fprintSquareGraph(FILE *stream, short **CA, int n) {
+    short i,j;
+    int currCell;
+    
+    fprintf(stream, "%hd %hd\n", n, n);
+
+    //print content
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+
+            currCell = getSquareIndex(n, i, j);
+
+            fprintf(stream, "%hd", (*CA)[currCell]);
+            if (j == n - 1) {
+                fprintf(stream, "\n");
+                break;
+            }
+            fprintf(stream, " ");
+        }
+    }
+}
 
 
 
