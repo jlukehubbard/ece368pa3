@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
 
 
 
-    #define TESTARRLOAD
+    //#define TESTARRLOAD
     #ifdef TESTARRLOAD
 
     if (argc != 2) {
@@ -55,13 +55,25 @@ int main(int argc, char **argv) {
 
     #endif
 
+    #define TESTDIJKSTRA
+    #ifdef TESTDIJKSTRA
 
+    if (argc != 2) {
+        fprintf(stdout, "bad args");
+        return EXIT_FAILURE;
+    }
 
-    #define TESTBFS
-    #ifdef TESTBFS
+ 
+    char *binaryGridFilename = argv[1];
+    Grid *outGrid = readGridFromFile(binaryGridFilename);
 
-    
+    printGrid(outGrid, stdout);
 
+    int dijkstraOut[outGrid -> cols][outGrid -> rows][outGrid -> cols];
+
+    //for (int i = 0; i < (outGrid -> cols))
+
+    freeGrid(outGrid);
     #endif
 
 
