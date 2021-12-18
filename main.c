@@ -12,6 +12,8 @@
 
 
 bool getDimensions(short *dim[2], FILE *binfile);
+bool fillGraph(short **G, short *dim[2], FILE *binfile);
+void fprintGraph(FILE *stream, short **G, short *dim[2]);
 
 
 
@@ -110,10 +112,13 @@ int main(int argc, char **argv) {
 
     IGNORE_RETURN fprintf(stdout, "%hd %hd\n", (*dim)[0], (*dim)[1]);
 
-    /*
     short n = ((*dim)[0] * (*dim)[1]);
-    short *inGraph = malloc(n * sizeof(short));
+    short **inGraph = malloc(n * sizeof(short));
     short *costAdjMatrix = malloc(n * n * sizeof(short));
+
+    fillGraph(inGraph, dim, binfile)
+
+    /*
 
     fprintGraoh(stdout, inGraph);
     fillCostAdj(costAdjMatrix, n * n);
@@ -133,4 +138,50 @@ bool getDimensions(short *dim[2], FILE *binfile) {
     IGNORE_RETURN fseek(binfile, 0, SEEK_SET);
 
     return (bool) fread(*dim, sizeof(short), 2, binfile);
+}
+
+
+
+bool fillGraph(short **G, short *dim[2], FILE *binfile) {
+
+    int currCell;
+    short i,j;
+
+    for(i = 0; i < (*dim)[0]; i++) {
+        for (j = 0; j < (*dim)[1]; j++) {
+            //Cell *into = &(new -> cells)[(new -> cols) * i + j];
+            //fread(&(into -> cost), sizeof(short), 1, fp);
+
+            currCell = ((*dim)[1] * i) + j;
+
+            fread(&(*G)[currCell], sizeof(short), 1, binfile);
+        }
+    }
+
+    return true;
+}
+
+
+
+void fprintGraph(FILE *stream, short **G, short *dim[2]) {
+
+    short i,j;
+    int currCell;
+    
+    fprintf(stream, "%hd %hd\n", (*dim)[0], (*dim)[1]);
+
+    //print content
+    for (i = 0; i < (*dim)[0]; i++) {
+        for (j = 0; j < (*dim)[1]; j++) {
+
+            currCell = ((*dim)[1] * i) + j;
+
+            fprintf(stream, "%hd", (*G)[currCell]);
+            if (j == (*dim)[1] - 1) {
+                fprintf(stream, "\n");
+                break;
+            }
+            fprintf(stream, " ");
+        }
+    }
 }
