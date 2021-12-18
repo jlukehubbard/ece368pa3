@@ -129,7 +129,7 @@ int main(int argc, char **argv) {
 
     fillGraph(G, dim, binfile);
     fprintGraph(stdout, G, dim);
-    fillCostAdj(CA, dim, G);
+    //fillCostAdj(CA, dim, G);
     fprintGraph(stdout, CA, CAdim);
 
 
