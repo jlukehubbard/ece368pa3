@@ -171,7 +171,7 @@ void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr
         color[i] = WHITE;
     }
 
-    (*distArr)[source] = 0; //used to be (*G)[source];
+    (*distArr)[source] = (*G)[source];
     //color[source] = BLACK;
 
 
