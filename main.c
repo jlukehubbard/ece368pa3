@@ -155,7 +155,7 @@ bool fillGraph(short **G, short *dim[2], FILE *binfile) {
 
             currCell = ((*dim)[1] * i) + j;
 
-            fread(&(*G)[currCell], sizeof(short), 1, binfile);
+            fread(&((*G)[currCell]), sizeof(short), 1, binfile);
         }
     }
 
