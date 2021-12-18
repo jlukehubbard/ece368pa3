@@ -128,9 +128,14 @@ int main(int argc, char **argv) {
     short **CA = &costAdjMatrix;
 
     fillGraph(G, dim, binfile);
-    fprintGraph(stdout, G, dim);
+    //fprintGraph(stdout, G, dim);
     fillCostAdj(CA, dim, G);
-    fprintSquareGraph(stdout, CA, n);
+    //fprintSquareGraph(stdout, CA, n);
+
+    short **dijkstraOut[(*dim)[1]];
+    for (size_t i = 0; i < (*dim)[1]; i++) {
+        //dijkstraOut[i] = 
+    }
 
 
     #endif
@@ -271,6 +276,8 @@ void fprintSquareGraph(FILE *stream, short **CA, int n) {
         }
     }
 }
+
+
 
 
 
