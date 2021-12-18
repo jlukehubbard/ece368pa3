@@ -1,12 +1,19 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 #include "queue.h"
 #include "grid.h"
 
 
+
+bool getDimensions()
+
+
+
 int main(int argc, char **argv) {
     
+    //#define TESTMAINFUNCTIONALITY
     #ifdef TESTMAINFUNCTIONALITY
     if (argc != 5) {
         return EXIT_FAILURE;
@@ -55,7 +62,9 @@ int main(int argc, char **argv) {
 
     #endif
 
-    #define TESTDIJKSTRA
+
+
+    //#define TESTDIJKSTRA
     #ifdef TESTDIJKSTRA
 
     if (argc != 2) {
@@ -69,13 +78,42 @@ int main(int argc, char **argv) {
 
     printGrid(outGrid, stdout);
 
-    int dijkstraOut[outGrid -> cols][outGrid -> rows][outGrid -> cols];
+    
 
     //for (int i = 0; i < (outGrid -> cols))
 
     freeGrid(outGrid);
     #endif
 
+
+
+    #define NOGRID
+    #ifdef NOGRID
+
+    if (argc != 2) {
+        fprintf(stdout, "bad args");
+        return EXIT_FAILURE;
+    }
+
+    char *binfileName = argv[1];
+    short *dim[2];
+    if (!getDimensions(dim, binfileName)) {
+        return EXIT_FAILURE;
+    }
+
+    fprintf(stdout, "%hd %hd\n", (*dim)[0], (*dim)[1]);
+
+    /*
+    short n = ((*dim)[0] * (*dim)[1]);
+    short *inGraph = malloc(n * sizeof(short));
+    short *costAdjMatrix = malloc(n * n * sizeof(short));
+
+    fprintGraoh(stdout, inGraph);
+    fillCostAdj(costAdjMatrix, n * n);
+
+    for (int = 0; i < (*dim)[1])
+    */
+    #endif
 
 
     return EXIT_SUCCESS;
