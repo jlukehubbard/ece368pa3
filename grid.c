@@ -64,9 +64,6 @@ Grid *newGrid(short rows, short cols) {
             into -> row = i;
             into -> col = j;
             into -> color = WHITE;
-            into -> prev = NULL;
-            into -> enterTime = SHRT_MAX;
-            into -> exitTime = SHRT_MAX;
         }
     }
 
@@ -82,23 +79,3 @@ void freeGrid(Grid *grid) {
     free(grid);
 }
 
-void BFS(Grid *grid, short row, short col) {
-    Queue2D *points = malloc(sizeof(Queue2D));
-    enqueueCell(points, grid, row, col);
-    Cell *curr;
-    short time = 0;
-
-    while (!isEmpty2D(points)) {
-        curr -> enterTime = time;
-        time += 
-        curr -> exitTime = 
-        curr = dequeueCell(points, grid);
-        enqueueNeighbors(points, grid, curr);
-
-    }
-    
-}
-
-void bfs(Grid *grid, Queue2D *queue, short row, short col) {
-    
-}
