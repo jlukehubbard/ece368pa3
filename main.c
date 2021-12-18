@@ -173,7 +173,7 @@ void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr
     }
 
     (*distArr)[source] = (*G)[source];
-    (*predArr)[source] = NULL;
+    (*predArr)[source] = INT_MAX;
     //color[source] = BLACK;
 
 
