@@ -131,11 +131,11 @@ int main(int argc, char **argv) {
     short **G = &inGraph;
     short **CA = &costAdjMatrix;
 
-    fprintGraph(stdout, G, dim);
+    //fprintGraph(stdout, G, dim);
     fillGraph(G, dim, binfile);
-    fprintGraph(stdout, G, dim);
+    //fprintGraph(stdout, G, dim);
     fillCostAdj(CA, dim, G);
-    fprintSquareGraph(stdout, CA, n);
+    //fprintSquareGraph(stdout, CA, n);
 
     // array of pointers to arrays
     int **distanceArrays = malloc((*dim)[1] * sizeof(int*));
@@ -146,6 +146,7 @@ int main(int argc, char **argv) {
         distanceArrays[i] = malloc(n * sizeof(int));
         predecessorArrays[i] = malloc(n * sizeof(int));
         dijkstra(G, dim, CA, &distanceArrays[i], &predecessorArrays[i], i);
+        fprintf(stdout, "%d", i);
         fprintIntGraph(stdout, &distanceArrays[i], dim);
         fprintIntGraph(stdout, &predecessorArrays[i], dim);
     }
