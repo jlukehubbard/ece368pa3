@@ -122,7 +122,7 @@ int main(int argc, char **argv) {
     short **G = &inGraph;
     short **CA = &costAdjMatrix;
 
-    fillGraph(inGraph, dim, binfile);
+    fillGraph(G, dim, binfile);
     fprintGraph(stdout, G, dim);
     fillCostAdj(CA, dim, G);
 
