@@ -113,7 +113,8 @@ int main(int argc, char **argv) {
     }
 
     char *binfileName = argv[1];
-    short *dim[2];
+    short dimensions = malloc(2 * sizeof(short));
+    short *dim[2] = &dimensions;
 
     FILE *binfile = fopen(binfileName, "rb");
 
@@ -220,7 +221,7 @@ bool getDimensions(short *dim[2], FILE *binfile) {
 
     IGNORE_RETURN fseek(binfile, 0, SEEK_SET);
 
-    return (bool) fread(dim, sizeof(short), 2, binfile);
+    return (bool) fread((*dim), sizeof(short), 2, binfile);
 }
 
 bool fillGraph(short **G, short *dim[2], FILE *binfile) {
