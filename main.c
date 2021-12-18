@@ -12,6 +12,7 @@
 
 
 int coordConvert(short *dim[2], short row, short column);
+int dimToCount(short *dim[2]);
 
 bool getDimensions(short *dim[2], FILE *binfile);
 bool fillGraph(short **G, short *dim[2], FILE *binfile);
@@ -115,7 +116,7 @@ int main(int argc, char **argv) {
 
     //IGNORE_RETURN fprintf(stdout, "%hd %hd\n", (*dim)[0], (*dim)[1]);
 
-    short n = ((*dim)[0] * (*dim)[1]);
+    short n = dimToCount(dim);
     short *inGraph = malloc(n * sizeof(short));
     short *costAdjMatrix = malloc(n * n * sizeof(short));
 
@@ -136,6 +137,10 @@ int main(int argc, char **argv) {
 
 int coordConvert(short *dim[2], short row, short column) {
     return ((*dim)[1] * row) + column;
+}
+
+int dimToCount(short *dim[2]) {
+    return ((*dim)[0] * (*dim)[1]);
 }
 
 bool getDimensions(short *dim[2], FILE *binfile) {
@@ -188,6 +193,8 @@ void fprintGraph(FILE *stream, short **G, short *dim[2]) {
 }
 
 bool fillCostAdj(short **costAdj, short *dim[2], short **G) {
+
+
     return true;
 }
 
