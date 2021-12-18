@@ -7,7 +7,11 @@
 
 
 
-bool getDimensions()
+#define IGNORE_RETURN (void)!
+
+
+
+bool getDimensions(short *dim[2], FILE *binfile);
 
 
 
@@ -97,11 +101,14 @@ int main(int argc, char **argv) {
 
     char *binfileName = argv[1];
     short *dim[2];
-    if (!getDimensions(dim, binfileName)) {
+
+    FILE *binfile = fopen(binfileName, "rb");
+
+    if (!getDimensions(dim, binfile)) {
         return EXIT_FAILURE;
     }
 
-    fprintf(stdout, "%hd %hd\n", (*dim)[0], (*dim)[1]);
+    IGNORE_RETURN fprintf(stdout, "%hd %hd\n", (*dim)[0], (*dim)[1]);
 
     /*
     short n = ((*dim)[0] * (*dim)[1]);
@@ -117,4 +124,13 @@ int main(int argc, char **argv) {
 
 
     return EXIT_SUCCESS;
+}
+
+
+
+bool getDimensions(short *dim[2], FILE *binfile) {
+
+    IGNORE_RETURN fseek(binfile, 0, SEEK_SET);
+
+    return (bool) fread(*dim, sizeof(short), 2, binfile);
 }
