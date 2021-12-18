@@ -22,16 +22,6 @@ typedef struct queue2d {
     Queue *col;
 } Queue2D;
 
-typedef struct qnodecell {
-    Cell *cell;
-    struct qnodecell *next;
-} QueueNodeCell;
-
-typedef struct {
-    QueueNodeCell *head;
-    QueueNodeCell *tail;
-    Grid *grid;
-} QueueCell;
 
 Queue *newQueue();
 void enqueue(Queue *queue, short key);
