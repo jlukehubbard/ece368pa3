@@ -11,7 +11,7 @@
 
 
 
-int coordConvert(short *dim[2], short row, short column);
+int getIndex(short *dim[2], short row, short column);
 int dimToCount(short *dim[2]);
 int getRow(short *dim[2], int index);
 int getCol(short *dim[2], int index);
@@ -19,7 +19,7 @@ int getCol(short *dim[2], int index);
 bool getDimensions(short *dim[2], FILE *binfile);
 bool fillGraph(short **G, short *dim[2], FILE *binfile);
 void fprintGraph(FILE *stream, short **G, short *dim[2]);
-bool fillCostAdj(short **costAdj, short *dim[2], short **G);
+bool fillCostAdj(short **CA, short *dim[2], short **G);
 
 
 
@@ -118,7 +118,8 @@ int main(int argc, char **argv) {
 
     //IGNORE_RETURN fprintf(stdout, "%hd %hd\n", (*dim)[0], (*dim)[1]);
 
-    short n = dimToCount(dim);
+    int n = dimToCount(dim);
+    int *CAdim[2] = {n, n};
     short *inGraph = malloc(n * sizeof(short));
     short *costAdjMatrix = malloc(n * n * sizeof(short));
 
@@ -127,13 +128,9 @@ int main(int argc, char **argv) {
 
     fillGraph(G, dim, binfile);
     fprintGraph(stdout, G, dim);
-    //fillCostAdj(CA, dim, G);
+    fillCostAdj(CA, dim, G);
+    fprintGraph(stdout, CA, CAdim);
 
-    int testidx = coordConvert(dim, 1, 1);
-    int testrow = getRow(dim, testidx);
-    int testcol = getCol(dim, testidx);
-
-    fprintf(stdout, "%d\n%d %d\n", testidx, testrow, testcol);
 
     #endif
 
@@ -143,7 +140,7 @@ int main(int argc, char **argv) {
 
 
 
-int coordConvert(short *dim[2], short row, short column) {
+int getIndex(short *dim[2], short row, short column) {
     return ((*dim)[1] * row) + column;
 }
 
@@ -177,7 +174,7 @@ bool fillGraph(short **G, short *dim[2], FILE *binfile) {
             //Cell *into = &(new -> cells)[(new -> cols) * i + j];
             //fread(&(into -> cost), sizeof(short), 1, fp);
 
-            currCell = coordConvert(dim, i, j);
+            currCell = getIndex(dim, i, j);
 
             fread(&((*G)[currCell]), sizeof(short), 1, binfile);
         }
@@ -197,7 +194,7 @@ void fprintGraph(FILE *stream, short **G, short *dim[2]) {
     for (i = 0; i < (*dim)[0]; i++) {
         for (j = 0; j < (*dim)[1]; j++) {
 
-            currCell = coordConvert(dim, i, j);
+            currCell = getIndex(dim, i, j);
 
             fprintf(stream, "%hd", (*G)[currCell]);
             if (j == (*dim)[1] - 1) {
@@ -209,15 +206,36 @@ void fprintGraph(FILE *stream, short **G, short *dim[2]) {
     }
 }
 
-bool fillCostAdj(short **costAdj, short *dim[2], short **G) {
+bool fillCostAdj(short **CA, short *dim[2], short **G) {
 
     int n = dimToCount(dim);
+    int *CAdim[2] = {n, n};
     int i, j;
+    short fromRow, fromCol, toRow, toCol;
 
     for (i = 0; i < n; i++) {
         for (j = 0; j < n; j++)
         {
-            
+            fromRow = getRow(dim, i);
+            fromCol = getCol(dim, i);
+            toRow = getRow(dim, j);
+            toCol = getCol(dim, j);
+
+            switch(toRow - fromRow) {
+                case -1:
+                case 0:
+                case 1:
+                    switch(toCol - fromCol) {
+                        case -1:
+                        case 0:
+                        case 1:
+                            (*CA)[getIndex(CAdim, i, j)] = (*G)[j];
+                            break;
+                        default:
+                    }
+                    break;
+                default:
+            }
         }
     }
 
