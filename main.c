@@ -233,7 +233,7 @@ bool fillCostAdj(short **CA, short *dim[2], short **G) {
                         case -1:
                         case 0:
                         case 1:
-                            (*CA)[getIndex(CAdim, i, j)] = (*G)[j];
+                            (*CA)[getSquareIndex(n, i, j)] = (*G)[j];
                             break;
                     }
             }
