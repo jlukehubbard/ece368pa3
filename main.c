@@ -322,6 +322,8 @@ bool fillCostAdj(short **CA, short *dim[2], short **G) {
                         case 1:
                             (*CA)[getSquareIndex(n, i, j)] = (*G)[j];
                             break;
+                        default:
+                            goto infty;
                     }
                     break;
                 default:
