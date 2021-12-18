@@ -166,6 +166,7 @@ void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr
     CellColor *color = malloc(n * sizeof(CellColor));
 
     for (size_t i = 0; i < n; i++) {
+        (*distArr)[i] = INT_MAX;
         (*predArr)[i] = source;
         color[i] = WHITE;
     }
