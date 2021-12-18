@@ -136,6 +136,7 @@ int main(int argc, char **argv) {
     fillCostAdj(CA, dim, G);
     fprintSquareGraph(stdout, CA, n);
 
+    /*
     // array of pointers to arrays
     int ***distanceArrays = malloc((*dim)[1] * sizeof(int**));
     int ***predecessorArrays = malloc((*dim)[1] * sizeof(int**));
@@ -147,7 +148,7 @@ int main(int argc, char **argv) {
         fprintIntGraph(stdout, distanceArrays[i], dim);
     }
 
-
+    */
 
 
     #endif
