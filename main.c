@@ -231,10 +231,7 @@ bool fillCostAdj(short **CA, short *dim[2], short **G) {
                         case 1:
                             (*CA)[getIndex(CAdim, i, j)] = (*G)[j];
                             break;
-                        default:
                     }
-                    break;
-                default:
             }
         }
     }
