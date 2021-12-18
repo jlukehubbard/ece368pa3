@@ -140,15 +140,15 @@ int main(int argc, char **argv) {
     int ***distanceArrays = malloc((*dim)[1] * sizeof(int**));
     int ***predecessorArrays = malloc((*dim)[1] * sizeof(int**));
 
-    /*
+    
     for (size_t i = (*dim)[1] - 1; i < (*dim)[1]; i++) {
         (*distanceArrays)[i] = malloc(n * sizeof(int));
         (*predecessorArrays)[i] = malloc(n * sizeof(int));
-        dijkstra(G, dim, CA, distanceArrays[i], predecessorArrays[i], i);
+        //dijkstra(G, dim, CA, distanceArrays[i], predecessorArrays[i], i);
         fprintIntGraph(stdout, distanceArrays[i], dim);
     }
 
-    */
+    /**/
 
 
     #endif
