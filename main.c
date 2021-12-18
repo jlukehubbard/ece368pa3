@@ -11,7 +11,7 @@
 
 
 
-int getIndex(short *dim[2], short row, short column);
+int getIndex(int *dim[2], short row, short column);
 int dimToCount(short *dim[2]);
 int getRow(short *dim[2], int index);
 int getCol(short *dim[2], int index);
@@ -141,7 +141,7 @@ int main(int argc, char **argv) {
 
 
 
-int getIndex(short *dim[2], short row, short column) {
+int getIndex(int *dim[2], short row, short column) {
     return ((*dim)[1] * row) + column;
 }
 
