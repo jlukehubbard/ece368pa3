@@ -155,7 +155,7 @@ bool fillGraph(short **G, short *dim[2], FILE *binfile) {
 
             currCell = ((*dim)[1] * i) + j;
 
-            fread(&((*G)[currCell]), sizeof(short), 1, binfile);
+            fread(&(G[currCell]), sizeof(short), 1, binfile);
         }
     }
 
@@ -177,7 +177,7 @@ void fprintGraph(FILE *stream, short **G, short *dim[2]) {
 
             currCell = ((*dim)[1] * i) + j;
 
-            fprintf(stream, "%hd", (*G)[currCell]);
+            fprintf(stream, "%hd", G[currCell]);
             if (j == (*dim)[1] - 1) {
                 fprintf(stream, "\n");
                 break;
