@@ -119,7 +119,8 @@ int main(int argc, char **argv) {
     //IGNORE_RETURN fprintf(stdout, "%hd %hd\n", (*dim)[0], (*dim)[1]);
 
     int n = dimToCount(dim);
-    int ntwice[2] = {n, n};
+    int *ntwice = malloc(2*sizeof(int));
+    ntwice = {n, n};
     int **CAdim = &ntwice;
     short *inGraph = malloc(n * sizeof(short));
     short *costAdjMatrix = malloc(n * n * sizeof(short));
