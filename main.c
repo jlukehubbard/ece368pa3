@@ -166,7 +166,6 @@ void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr
     CellColor *color = malloc(n * sizeof(CellColor));
 
     for (size_t i = 0; i < n; i++) {
-        (*distArr)[i] = (*CA)[getSquareIndex(n, source, i)];
         (*predArr)[i] = source;
         color[i] = WHITE;
     }
