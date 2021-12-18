@@ -114,7 +114,7 @@ int main(int argc, char **argv) {
 
     char *binfileName = argv[1];
     short *dimensions = malloc(2 * sizeof(short));
-    short *dim[2] = &dimensions;
+    short **dim = &dimensions;
 
     FILE *binfile = fopen(binfileName, "rb");
 
