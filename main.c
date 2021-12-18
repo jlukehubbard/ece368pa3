@@ -11,6 +11,8 @@
 
 
 
+void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr, int source);
+
 int getIndex(short *dim[2], short row, short column);
 int getSquareIndex(int n, short row, short column);
 int dimToCount(short *dim[2]);
@@ -20,6 +22,7 @@ int getCol(short *dim[2], int index);
 bool getDimensions(short *dim[2], FILE *binfile);
 bool fillGraph(short **G, short *dim[2], FILE *binfile);
 void fprintGraph(FILE *stream, short **G, short *dim[2]);
+void fprintIntGraph(FILE *stream, int **G, short *dim[2]);
 bool fillCostAdj(short **CA, short *dim[2], short **G);
 void fprintSquareGraph(FILE *stream, short **CA, int n);
 
@@ -132,10 +135,18 @@ int main(int argc, char **argv) {
     fillCostAdj(CA, dim, G);
     //fprintSquareGraph(stdout, CA, n);
 
-    short **dijkstraOut[(*dim)[1]];
-    for (size_t i = 0; i < (*dim)[1]; i++) {
-        //dijkstraOut[i] = 
+    // array of pointers to arrays
+    int ***distanceArrays = malloc((*dim)[1] * sizeof(int**));
+    int ***predecessorArrays = malloc((*dim)[1] * sizeof(int**));
+
+    for (size_t i = (*dim)[1] - 1; i < (*dim)[1]; i++) {
+        distanceArrays[i] = malloc(n * sizeof(int));
+        predecessorArrays[i] = malloc(n * sizeof(int));
+        dijkstra(G, CA, distanceArrays[i], predecessorArrays[i]);
+        fprintIntGraph(stdout, distanceArrays[i], dim);
     }
+
+
 
 
     #endif
@@ -145,6 +156,42 @@ int main(int argc, char **argv) {
 }
 
 
+
+void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr, int source) {
+    int n = dimToCount(dim), minDist, next;
+    CellColor *color = malloc(n * sizeof(CellColor));
+
+    (*distArr)[source] = 0;
+
+    for (size_t i = 0; i < n; i++) {
+        (*distArr)[i] = (*CA)[getSquareIndex(n, source, i)];
+        (*predArr)[i] = source;
+        color[i] = WHITE;
+    }
+
+    for (i = 0; i < (n-1); i++) {
+        minDist = INT_MAX;
+
+        for (size_t j = 0; j < n; j++) {
+            if (distArr[i] < minDist && color[i] == WHITE) {
+                minDist = distArr[i];
+                next = i;
+            }
+        }
+
+        color[next] = BLACK;
+
+        for (j = 0; j < n; j++) {
+            if (color[i] == WHITE) {
+                if (distArr[next] + (*CA)[getSquareIndex(n, next, i)] < distArr[i]) {
+                    distArr[i] = distArr[next] + (*CA)[getSquareIndex(n, next, i)];
+                    predArr[i] = next;
+                }
+            }
+        }
+    }
+
+}
 
 int getIndex(short *dim[2], short row, short column) {
     return ((*dim)[1] * row) + column;
@@ -207,6 +254,29 @@ void fprintGraph(FILE *stream, short **G, short *dim[2]) {
             currCell = getIndex(dim, i, j);
 
             fprintf(stream, "%hd", (*G)[currCell]);
+            if (j == (*dim)[1] - 1) {
+                fprintf(stream, "\n");
+                break;
+            }
+            fprintf(stream, " ");
+        }
+    }
+}
+
+void fprintIntGraph(FILE *stream, int **G, short *dim[2]) {
+
+    short i,j;
+    int currCell;
+    
+    fprintf(stream, "%hd %hd\n", (*dim)[0], (*dim)[1]);
+
+    //print content
+    for (i = 0; i < (*dim)[0]; i++) {
+        for (j = 0; j < (*dim)[1]; j++) {
+
+            currCell = getIndex(dim, i, j);
+
+            fprintf(stream, "%d", (*G)[currCell]);
             if (j == (*dim)[1] - 1) {
                 fprintf(stream, "\n");
                 break;
