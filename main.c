@@ -16,6 +16,7 @@ int coordConvert(short *dim[2], short row, short column);
 bool getDimensions(short *dim[2], FILE *binfile);
 bool fillGraph(short **G, short *dim[2], FILE *binfile);
 void fprintGraph(FILE *stream, short **G, short *dim[2]);
+bool fillCostAdj(short **costAdj, short *dim[2], short **G);
 
 
 
