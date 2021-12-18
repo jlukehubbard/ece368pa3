@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
 
 
 
-    //#define TESTARRLOAD
+    #define TESTARRLOAD
     #ifdef TESTARRLOAD
 
     if (argc != 2) {
