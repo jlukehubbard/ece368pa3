@@ -18,7 +18,7 @@ int getCol(short *dim[2], int index);
 
 bool getDimensions(short *dim[2], FILE *binfile);
 bool fillGraph(short **G, short *dim[2], FILE *binfile);
-void fprintGraph(FILE *stream, short **G, short *dim[2]);
+void fprintGraph(FILE *stream, short **G, int *dim[2]);
 bool fillCostAdj(short **CA, short *dim[2], short **G);
 
 
