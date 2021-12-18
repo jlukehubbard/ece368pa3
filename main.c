@@ -297,13 +297,30 @@ bool fillCostAdj(short **CA, short *dim[2], short **G) {
     short fromRow, fromCol, toRow, toCol;
 
     for (i = 0; i < n; i++) {
-        for (j = 0; j < n; j++)
-        {
+        for (j = 0; j < n; j++) {
+            (*CA)[getSquareIndex(n, i, j)] = SHRT_MAX;
+        }
+    }
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
             fromRow = getRow(dim, i);
             fromCol = getCol(dim, i);
             toRow = getRow(dim, j);
             toCol = getCol(dim, j);
 
+            short rowOffs = toRow - fromRow;
+            short colOffs = toCol - fromCol;
+
+            if(rowOffs == -1 || rowOffs == 1) {
+                if (colOffs == 0) {
+                    (*CA)[getSquareIndex(n, i, j)] = (*G)[j];
+                }
+            } else if (rowOffs == 0) {
+                if (colOffs == -1 || colOffs == 1) {
+                    (*CA)[getSquareIndex(n, i, j)] = (*G)[j];
+                }
+            }
+            /*
             switch(toRow - fromRow) {
                 case 0:
                     switch(toCol - fromCol) {
@@ -331,6 +348,7 @@ bool fillCostAdj(short **CA, short *dim[2], short **G) {
                     infty:
                     (*CA)[getSquareIndex(n, i, j)] = SHRT_MAX;
             }
+            */
         }
     }
 
