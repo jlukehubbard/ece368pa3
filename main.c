@@ -120,7 +120,7 @@ int main(int argc, char **argv) {
 
     int n = dimToCount(dim);
     int ntwice[2] = {n, n};
-    int *CAdim[2] = &ntwice;
+    int **CAdim = &ntwice;
     short *inGraph = malloc(n * sizeof(short));
     short *costAdjMatrix = malloc(n * n * sizeof(short));
 
