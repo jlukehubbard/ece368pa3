@@ -131,9 +131,9 @@ int main(int argc, char **argv) {
     short **CA = &costAdjMatrix;
 
     fillGraph(G, dim, binfile);
-    //fprintGraph(stdout, G, dim);
+    fprintGraph(stdout, G, dim);
     fillCostAdj(CA, dim, G);
-    //fprintSquareGraph(stdout, CA, n);
+    fprintSquareGraph(stdout, CA, n);
 
     // array of pointers to arrays
     int ***distanceArrays = malloc((*dim)[1] * sizeof(int**));
