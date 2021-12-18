@@ -148,8 +148,8 @@ bool fillGraph(short **G, short *dim[2], FILE *binfile) {
     int currCell;
     short i,j;
 
-    for(i = 0; i < (*dim)[0] - 1; i++) {
-        for (j = 0; j < (*dim)[1] - 1; j++) {
+    for(i = 0; i < (*dim)[0]; i++) {
+        for (j = 0; j < (*dim)[1]; j++) {
             //Cell *into = &(new -> cells)[(new -> cols) * i + j];
             //fread(&(into -> cost), sizeof(short), 1, fp);
 
