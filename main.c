@@ -13,6 +13,8 @@
 
 int coordConvert(short *dim[2], short row, short column);
 int dimToCount(short *dim[2]);
+int getRow(short *dim[2], int index);
+int getCol(short *dim[2], int index);
 
 bool getDimensions(short *dim[2], FILE *binfile);
 bool fillGraph(short **G, short *dim[2], FILE *binfile);
@@ -125,7 +127,13 @@ int main(int argc, char **argv) {
 
     fillGraph(G, dim, binfile);
     fprintGraph(stdout, G, dim);
-    fillCostAdj(CA, dim, G);
+    //fillCostAdj(CA, dim, G);
+
+    int testidx = coordConvert(dim, 1, 1);
+    int testrow = getRow(dim, testidx);
+    int testcol = getCol(dim, testidx);
+
+    fprintf(stdout, "%d\n%d %d\n", testidx, testrow, testcol);
 
     #endif
 
@@ -137,6 +145,15 @@ int main(int argc, char **argv) {
 
 int coordConvert(short *dim[2], short row, short column) {
     return ((*dim)[1] * row) + column;
+}
+
+int getRow(short *dim[2], int index){
+
+    return ((index - getCol(dim, index)) / (*dim)[1]);
+}
+
+int getCol(short *dim[2], int index) {
+    return index % (*dim)[1];
 }
 
 int dimToCount(short *dim[2]) {
@@ -194,6 +211,15 @@ void fprintGraph(FILE *stream, short **G, short *dim[2]) {
 
 bool fillCostAdj(short **costAdj, short *dim[2], short **G) {
 
+    int n = dimToCount(dim);
+    int i, j;
+
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++)
+        {
+            
+        }
+    }
 
     return true;
 }
