@@ -141,7 +141,7 @@ int main(int argc, char **argv) {
 
 
 
-int getIndex(int *dim[2], short row, short column) {
+int getIndex(short *dim[2], short row, short column) {
     return ((*dim)[1] * row) + column;
 }
 
