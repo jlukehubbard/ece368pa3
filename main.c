@@ -142,11 +142,11 @@ int main(int argc, char **argv) {
     int **predecessorArrays = malloc((*dim)[1] * sizeof(int*));
 
     
-    for (size_t i = (*dim)[1] - 1; i < (*dim)[1]; i++) {
+    for (size_t i = 0; i < (*dim)[1]; i++) {
         distanceArrays[i] = malloc(n * sizeof(int));
         predecessorArrays[i] = malloc(n * sizeof(int));
         dijkstra(G, dim, CA, &distanceArrays[i], &predecessorArrays[i], i);
-        fprintf(stdout, "%d", i);
+        fprintf(stdout, "%d", (int) i);
         fprintIntGraph(stdout, &distanceArrays[i], dim);
         fprintIntGraph(stdout, &predecessorArrays[i], dim);
     }
