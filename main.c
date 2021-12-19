@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
     fillGraph(G, dim, binfile);
     fillCostAdj(CA, dim, G);
 
-    fclose(binfile);
+    //fclose(binfile);
     // array of pointers to arrays
     int **distanceArrays = malloc((*dim)[1] * sizeof(int*));
     int **predecessorArrays = malloc((*dim)[1] * sizeof(int*));
