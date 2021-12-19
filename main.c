@@ -550,7 +550,7 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
     int row, col;
     fwrite(&minTime, sizeof(int), 1, pathfile);
     fwrite(&count, sizeof(int), 1, pathfile);
-    for (size_t i = count - 1; i >= 0) {
+    for (size_t i = count - 1; i >= 0; i--) {
         row = getRow(dim, points[i]);
         col = getCol(dim, points[i]);
         fprintf(stdout, "%hd %hd\n", row, col);
