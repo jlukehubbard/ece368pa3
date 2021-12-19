@@ -53,7 +53,6 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
     }
 
-    fclose(binfile);
 
     //IGNORE_RETURN fprintf(stdout, "%hd %hd\n", (*dim)[0], (*dim)[1]);
 
@@ -67,11 +66,12 @@ int main(int argc, char **argv) {
     fillGraph(G, dim, binfile);
     fillCostAdj(CA, dim, G);
 
+    fclose(binfile);
     // array of pointers to arrays
     int **distanceArrays = malloc((*dim)[1] * sizeof(int*));
     int **predecessorArrays = malloc((*dim)[1] * sizeof(int*));
 
-    
+
     for (size_t i = 0; i < (*dim)[1]; i++) {
         distanceArrays[i] = malloc(n * sizeof(int));
         predecessorArrays[i] = malloc(n * sizeof(int));
