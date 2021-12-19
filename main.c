@@ -510,8 +510,6 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
         }
 
         fastestTimes[i] = minTime;
-        fprintf(stdout, "%d\n", minTime);
-        fprintIntGraph(stdout, distArr, dim);
     }
 
     minTime = INT_MAX;
@@ -536,11 +534,31 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
         }
     }
 
+    //fastest times file
+    fwrite(&(*dim)[1], sizeof(short), 1, timefile);
+    fwrite(fastestTimes, sizeof(int), (*dim)[1], timefile);
+
+    int *points = malloc(n * sizeof(int));
+
     while (curr != INT_MAX) {
         count++;
-        fprintf(stream, "%d (%hd, %hd)\n", curr, getRow(dim, curr), getCol(dim, curr));
+        points[count] = curr;
         curr = (*predArr)[curr];
     }
+
+    //fastest path file
+    int row, col;
+    fwrite(&minTime, sizeof(int), 1, pathfile);
+    fwrite(&count, sizeof(int), 1, pathfile);
+    for (size_t i = count - 1; i >= 0) {
+        row = getRow(dim, points[i]);
+        col = getCol(dim, points[i]);
+        fprintf(stdout, "%hd %hd\n", row, col);
+        fwrite(&row, sizeof(short), 1, pathfile);
+        fwrite(&col, sizeof(short), 1, pathfile);
+    }
+
+
     fprintf(stream, "%d\n", count);
 }
 
