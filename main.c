@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
 
     FILE *txtfile = fopen(textfileName, "wb");
 
-    fprintGraph(txtfile);
+    fprintGraph(txtfile, G, dim);
 
     fclose(txtfile);
 
