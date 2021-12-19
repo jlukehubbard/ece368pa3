@@ -489,9 +489,12 @@ void fprintFastPath(FILE *stream, int **distArr, int **predArr, short **dim) {
 
 void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **predecessorArrays, short **dim) {
     int n = (*dim)[0] * (*dim)[1];
-    int curr, end, count, minTime;
+    int curr, count, minTime;
     int *fastestTimes = malloc((*dim)[1] * sizeof(int));
     int **distArr, **predArr;
+
+    FILE *stream = stdout;
+
     for (size_t i = 0; i < (*dim)[1]; i++) {
         distArr = &distanceArrays[i];
         predArr = &predecessorArrays[i];
@@ -510,7 +513,7 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
     }
 
     minTime = INT_MAX;
-    int pathnum, tailidx;
+    int pathnum;
 
     for (size_t i = 0; i < (*dim)[1]; i++) {
         //reusing minTime, don't get confused
