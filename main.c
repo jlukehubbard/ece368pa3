@@ -34,15 +34,55 @@ void fprintFastPath(FILE *stream, int **distArr, int **predArr, short **dim);
 
 int main(int argc, char **argv) {
     
-    //#define TESTMAINFUNCTIONALITY
+    #define TESTMAINFUNCTIONALITY
     #ifdef TESTMAINFUNCTIONALITY
     if (argc != 5) {
         return EXIT_FAILURE;
     }
-    char *binaryGridFilename = argv[1];
-    char *textGridFilename = argv[2];
+    char *binfileName = argv[1];
+    char *textfileName = argv[2];
     char *fastestTimesFilename = argv[3];
     char *fastestPathFilename = argv[4];
+
+    short *dimensions = malloc(2 * sizeof(short));
+    short **dim = &dimensions;
+
+    FILE *binfile = fopen(binfileName, "rb");
+
+    if (!getDimensions(dim, binfile)) {
+        return EXIT_FAILURE;
+    }
+
+    fclose(binfile);
+
+    //IGNORE_RETURN fprintf(stdout, "%hd %hd\n", (*dim)[0], (*dim)[1]);
+
+    int n = dimToCount(dim);
+    short *inGraph = malloc(n * sizeof(short));
+    short *costAdjMatrix = malloc(n * n * sizeof(short));
+
+    short **G = &inGraph;
+    short **CA = &costAdjMatrix;
+
+    fillGraph(G, dim, binfile);
+    fillCostAdj(CA, dim, G);
+
+    // array of pointers to arrays
+    int **distanceArrays = malloc((*dim)[1] * sizeof(int*));
+    int **predecessorArrays = malloc((*dim)[1] * sizeof(int*));
+
+    
+    for (size_t i = 0; i < (*dim)[1]; i++) {
+        distanceArrays[i] = malloc(n * sizeof(int));
+        predecessorArrays[i] = malloc(n * sizeof(int));
+        dijkstra(G, dim, CA, &distanceArrays[i], &predecessorArrays[i], i);
+        fprintf(stdout, "%d:\n", (int) i);
+        fprintIntGraph(stdout, &distanceArrays[i], dim);
+        fprintIntGraph(stdout, &predecessorArrays[i], dim);
+        fprintFastest(stdout, &distanceArrays[i], dim);
+        fprintFastPath(stdout, &distanceArrays[i], &predecessorArrays[i], dim);
+    }
+
     #endif
 
 
@@ -108,7 +148,7 @@ int main(int argc, char **argv) {
 
 
 
-    #define NOGRID
+    //#define NOGRID
     #ifdef NOGRID
 
     if (argc != 2) {
