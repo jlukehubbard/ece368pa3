@@ -28,6 +28,7 @@ void fprintSquareGraph(FILE *stream, short **CA, int n);
 
 
 void fprintFastest(FILE *stream, int **distArr, short **dim);
+void fprintFastPath(FILE *stream, int **distArr, int **predArr, short **dim);
 
 
 
@@ -153,6 +154,7 @@ int main(int argc, char **argv) {
         fprintIntGraph(stdout, &distanceArrays[i], dim);
         fprintIntGraph(stdout, &predecessorArrays[i], dim);
         fprintFastest(stdout, &distanceArrays[i], dim);
+        fprintFastPath(stdout, &distanceArrays[i], &predecessorArrays[i], dim);
     }
 
     /**/
@@ -409,7 +411,34 @@ void fprintFastest(FILE *stream, int **distArr, short **dim) {
     }
 }
 
+void fprintFastPath(FILE *stream, int **distArr, int **predArr, short **dim) {
+    int n = (*dim)[0] * (*dim)[1];
+    int curr = (*dim)[0] * ((*dim)[1] - 1);
+    int end = curr;
+    int count = 0;
 
+    int minDist = INT_MAX;
+
+    while (curr < n) {
+        if ((*distArr)[curr] < minDist) {
+            minDist = (*distArr)[curr];
+            end = curr;
+        }
+        curr++;
+    }
+
+    curr = end;
+
+    fprintf(stream, "%d\n", (*distArr)[curr]);
+
+    while (curr != INT_MAX) {
+        count++;
+        fprintf(stream, "%d (%hd, %hd)\n", curr, getRow(dim, curr), getCol(dim, curr));
+        curr = (*predArr)[curr];
+    }
+
+    fprintf(stream, "%d\n", count);
+}
 
 
 
