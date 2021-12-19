@@ -191,7 +191,7 @@ void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr
 
         for (size_t j = 0; j < n; j++) {
             if (color[j] == WHITE) {
-                if (minDist + (*CA)[getSquareIndex(n, next, j)] < (*distArr)[j]) {
+                if ((*CA)[getSquareIndex(n, next, j)] == 0 || minDist + (*CA)[getSquareIndex(n, next, j)] < (*distArr)[j]) {
                     (*distArr)[j] = minDist + (*CA)[getSquareIndex(n, next, j)];
                     (*predArr)[j] = next;
                 }
