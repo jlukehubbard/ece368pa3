@@ -29,6 +29,7 @@ void fprintSquareGraph(FILE *stream, short **CA, int n);
 
 void fprintFastest(FILE *stream, int **distArr, short **dim);
 void fprintFastPath(FILE *stream, int **distArr, int **predArr, short **dim);
+void fwriteFastPath(FILE * timefile, FILE *pathfile, int ***distanceArrays, int ***predecessorArrays, short **dim);
 
 
 
@@ -78,11 +79,16 @@ int main(int argc, char **argv) {
         dijkstra(G, dim, CA, &distanceArrays[i], &predecessorArrays[i], i);
     }
 
-    FILE *txtfile = fopen(textfileName, "wb");
+    FILE *textfile = fopen(textfileName, "wb");
+    FILE *timefile = fopen(fastestTimesFilename, "wb");
+    FILE *pathfile = fopen(fastestPathFilename, "wb");
 
-    fprintGraph(txtfile, G, dim);
+    fprintGraph(textfile, G, dim);
+    fwriteFastPath(timefile, pathfile, distanceArrays, predecessorArrays, dim);
 
-    fclose(txtfile);
+    fclose(textfile);
+    fclose(timefile);
+    fclose(pathfile);
 
     #endif
 
@@ -481,7 +487,41 @@ void fprintFastPath(FILE *stream, int **distArr, int **predArr, short **dim) {
     fprintf(stream, "%d\n", count);
 }
 
+void fwriteFastPath(FILE *timefile, FILE *pathfile, int ***distanceArrays, int ***predecessorArrays, short **dim) {
+    int n = (*dim)[0] * (*dim)[1];
+    int curr, end, count, minTime;
+    int *fastestTimes = malloc((*dim)[1] * sizeof(int));
+    int **distArr, **predArr;
+    for (size_t i = 0; i < (*dim)[1]; i++) {
+        distArr = distanceArrays[i];
+        predArr = predecessorArrays[i];
+        curr = (*dim)[0] * ((*dim)[1] - 1);
+        end = curr;
+        count = 0;
 
+        minTime = INT_MAX;
+
+        while (curr < n) {
+            if ((*distArr)[curr] < minTime) {
+                minTime = (*distArr)[curr];
+                end = curr;
+            }
+            curr++;
+        }
+
+        fastestTimes[i] = minTime;
+        curr = end;
+
+        fprintf(stream, "%d\n", (*distArr)[curr]);
+
+        while (curr != INT_MAX) {
+            count++;
+            fprintf(stream, "%d (%hd, %hd)\n", curr, getRow(dim, curr), getCol(dim, curr));
+            curr = (*predArr)[curr];
+        }
+    }
+    fprintf(stream, "%d\n", count);
+}
 
 
 
