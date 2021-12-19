@@ -492,34 +492,49 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
     int curr, end, count, minTime;
     int *fastestTimes = malloc((*dim)[1] * sizeof(int));
     int **distArr, **predArr;
-    FILE *stream = stdout;
     for (size_t i = 0; i < (*dim)[1]; i++) {
         distArr = &distanceArrays[i];
         predArr = &predecessorArrays[i];
         curr = (*dim)[0] * ((*dim)[1] - 1);
-        end = curr;
-        count = 0;
 
         minTime = INT_MAX;
 
         while (curr < n) {
             if ((*distArr)[curr] < minTime) {
                 minTime = (*distArr)[curr];
-                end = curr;
             }
             curr++;
         }
 
         fastestTimes[i] = minTime;
-        curr = end;
+    }
 
-        fprintf(stream, "%d\n", (*distArr)[curr]);
+    minTime = INT_MAX;
+    int pathnum, tailidx;
 
-        while (curr != INT_MAX) {
-            count++;
-            fprintf(stream, "%d (%hd, %hd)\n", curr, getRow(dim, curr), getCol(dim, curr));
-            curr = (*predArr)[curr];
+    for (size_t i = 0; i < (*dim)[1]; i++) {
+        //reusing minTime, don't get confused
+        if (fastestTimes[i] < minTime) {
+            minTime = fastestTimes[i];
+            pathnum = i;
         }
+    }
+
+    distArr = &distanceArrays[pathnum];
+    predArr = &predecessorArrays[pathnum];
+    minTime = INT_MAX;
+
+    for (size_t i = n - (*dim)[1]; i < n; i++) {
+        if ((*distArr)[i] < minTime) {
+            curr = i;
+            minTime = (*distArr)[i];
+        }
+    }
+
+    while (curr != INT_MAX) {
+        count++;
+        fprintf(stream, "%d (%hd, %hd)\n", curr, getRow(dim, curr), getCol(dim, curr));
+        curr = (*predArr)[curr];
     }
     fprintf(stream, "%d\n", count);
 }
