@@ -29,7 +29,7 @@ void fprintSquareGraph(FILE *stream, short **CA, int n);
 
 void fprintFastest(FILE *stream, int **distArr, short **dim);
 void fprintFastPath(FILE *stream, int **distArr, int **predArr, short **dim);
-void fwriteFastPath(FILE * timefile, FILE *pathfile, int **distanceArrays, int ***predecessorArrays, short **dim);
+void fwriteFastPath(FILE * timefile, FILE *pathfile, int **distanceArrays, int **predecessorArrays, short **dim);
 
 
 
