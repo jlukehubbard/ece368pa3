@@ -27,6 +27,23 @@ bool fillCostAdj(short **CA, short *dim[2], short **G);
 void fprintSquareGraph(FILE *stream, short **CA, int n);
 
 
+void fprintFastest(FILE *stream, int **distArr, short **dim) {
+    short rows = (*dim)[0];
+    short cols = (*dim)[1];
+    int n = rows * cols;
+    fprintf(stream, "%d\n", cols);
+    for (int i = (n - cols); i < n; i++) {
+        fprintf(stream, "%hd", (*distArr)[i]);
+        if (i == n - 1) {
+            fprintf(stream, "\n");
+        } else {
+            fprintf(stream, " ");
+        }
+    }
+}
+
+
+
 
 int main(int argc, char **argv) {
     
