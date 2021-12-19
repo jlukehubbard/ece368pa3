@@ -510,6 +510,7 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
         }
 
         fastestTimes[i] = minTime;
+        fprintf(stdout, "%d\n", minTime);
     }
 
     minTime = INT_MAX;
