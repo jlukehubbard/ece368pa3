@@ -487,7 +487,7 @@ void fprintFastPath(FILE *stream, int **distArr, int **predArr, short **dim) {
     fprintf(stream, "%d\n", count);
 }
 
-void fwriteFastPath(FILE *timefile, FILE *pathfile, int ***distanceArrays, int ***predecessorArrays, short **dim) {
+void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **predecessorArrays, short **dim) {
     int n = (*dim)[0] * (*dim)[1];
     int curr, end, count, minTime;
     int *fastestTimes = malloc((*dim)[1] * sizeof(int));
