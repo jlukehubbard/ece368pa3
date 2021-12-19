@@ -191,7 +191,7 @@ void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr
 
         for (size_t j = 0; j < n; j++) {
             if (color[j] == WHITE) {
-                if ((*CA)[getSquareIndex(n, next, j)] == 0 || minDist + (*CA)[getSquareIndex(n, next, j)] < (*distArr)[j]) {
+                if (minDist + (*CA)[getSquareIndex(n, next, j)] < (*distArr)[j]) {
                     (*distArr)[j] = minDist + (*CA)[getSquareIndex(n, next, j)];
                     (*predArr)[j] = next;
                 }
@@ -328,11 +328,11 @@ bool fillCostAdj(short **CA, short *dim[2], short **G) {
 
             if(rowOffs == -1 || rowOffs == 1) {
                 if (colOffs == 0) {
-                    (*CA)[getSquareIndex(n, i, j)] = (*G)[j];
+                    (*CA)[getSquareIndex(n, i, j)] = (*G)[i];
                 }
             } else if (rowOffs == 0) {
                 if (colOffs == -1 || colOffs == 1) {
-                    (*CA)[getSquareIndex(n, i, j)] = (*G)[j];
+                    (*CA)[getSquareIndex(n, i, j)] = (*G)[i];
                 }
             }
             /*
