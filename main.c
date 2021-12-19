@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
     int **predecessorArrays = malloc((*dim)[1] * sizeof(int*));
 
 
-    for (size_t i = 0; i < (*dim)[1]; i++) {
+    for (int i = 0; i < (*dim)[1]; i++) {
         distanceArrays[i] = malloc(n * sizeof(int));
         predecessorArrays[i] = malloc(n * sizeof(int));
         dijkstra(G, dim, CA, &distanceArrays[i], &predecessorArrays[i], i);
@@ -193,7 +193,7 @@ int main(int argc, char **argv) {
     int **predecessorArrays = malloc((*dim)[1] * sizeof(int*));
 
     
-    for (size_t i = 0; i < (*dim)[1]; i++) {
+    for (int i = 0; i < (*dim)[1]; i++) {
         distanceArrays[i] = malloc(n * sizeof(int));
         predecessorArrays[i] = malloc(n * sizeof(int));
         dijkstra(G, dim, CA, &distanceArrays[i], &predecessorArrays[i], i);
@@ -219,7 +219,7 @@ void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr
     int n = dimToCount(dim), minDist, next;
     CellColor *color = malloc(n * sizeof(CellColor));
 
-    for (size_t i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         (*distArr)[i] = INT_MAX;
         (*predArr)[i] = source;
         color[i] = WHITE;
@@ -230,10 +230,10 @@ void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr
     //color[source] = BLACK;
 
 
-    for (size_t i = 0; i < (n-2); i++) {
+    for (int i = 0; i < (n-2); i++) {
         minDist = INT_MAX;
 
-        for (size_t j = 0; j < n; j++) {
+        for (int j = 0; j < n; j++) {
             if ((*distArr)[j] < minDist && color[j] == WHITE) {
                 minDist = (*distArr)[j];
                 next = j;
@@ -242,7 +242,7 @@ void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr
 
         color[next] = BLACK;
 
-        for (size_t j = 0; j < n; j++) {
+        for (int j = 0; j < n; j++) {
             if (color[j] == WHITE) {
                 if (minDist + (*CA)[getSquareIndex(n, next, j)] < (*distArr)[j]) {
                     (*distArr)[j] = minDist + (*CA)[getSquareIndex(n, next, j)];
@@ -495,7 +495,7 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
 
     FILE *stream = stdout;
 
-    for (size_t i = 0; i < (*dim)[1]; i++) {
+    for (int i = 0; i < (*dim)[1]; i++) {
         distArr = &distanceArrays[i];
         predArr = &predecessorArrays[i];
         curr = (*dim)[0] * ((*dim)[1] - 1);
@@ -515,7 +515,7 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
     minTime = INT_MAX;
     int pathnum;
 
-    for (size_t i = 0; i < (*dim)[1]; i++) {
+    for (int i = 0; i < (*dim)[1]; i++) {
         //reusing minTime, don't get confused
         if (fastestTimes[i] < minTime) {
             minTime = fastestTimes[i];
@@ -527,7 +527,7 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
     predArr = &predecessorArrays[pathnum];
     minTime = INT_MAX;
 
-    for (size_t i = n - (*dim)[1]; i < n; i++) {
+    for (int i = n - (*dim)[1]; i < n; i++) {
         if ((*distArr)[i] < minTime) {
             curr = i;
             minTime = (*distArr)[i];
@@ -550,10 +550,10 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
     int row, col;
     fwrite(&minTime, sizeof(int), 1, pathfile);
     fwrite(&count, sizeof(int), 1, pathfile);
-    for (size_t i = count - 1; i >= 0; i--) {
+    for (int i = count; i >= 0; i--) {
         row = getRow(dim, points[i]);
         col = getCol(dim, points[i]);
-        fprintf(stdout, "%hd %hd\n", row, col);
+        fprintf(stream, "%hd %hd\n", row, col);
         fwrite(&row, sizeof(short), 1, pathfile);
         fwrite(&col, sizeof(short), 1, pathfile);
     }
