@@ -537,8 +537,10 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
     //fastest times file
     fseek(timefile, 0, SEEK_SET);
     fseek(pathfile, 0, SEEK_SET);
+
+
     fwrite(&(*dim)[1], sizeof(short), 1, timefile);
-    fwrite(fastestTimes, sizeof(int), (*dim)[1] + 1, timefile);
+    fwrite(fastestTimes, sizeof(int), (*dim)[1], timefile);
 
     int *points = malloc(n * sizeof(int));
 
