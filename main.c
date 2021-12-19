@@ -493,8 +493,6 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
     int *fastestTimes = malloc((*dim)[1] * sizeof(int));
     int **distArr, **predArr;
 
-    FILE *stream = stdout;
-
     for (int i = 0; i < (*dim)[1]; i++) {
         distArr = &distanceArrays[i];
         predArr = &predecessorArrays[i];
@@ -510,7 +508,6 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
         }
 
         fastestTimes[i] = minTime;
-        fprintf(stdout, "%d\n", minTime);
     }
 
     minTime = INT_MAX;
@@ -564,7 +561,7 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
     }
 
 
-    //fprintf(stream, "%d\n", count);
+    fprintf(stream, "%d\n", count);
 }
 
 
