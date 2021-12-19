@@ -35,7 +35,7 @@ void fwriteFastPath(FILE * timefile, FILE *pathfile, int **distanceArrays, int *
 
 int main(int argc, char **argv) {
     
-    //#define TESTMAINFUNCTIONALITY
+    #define TESTMAINFUNCTIONALITY
     #ifdef TESTMAINFUNCTIONALITY
     if (argc != 5) {
         return EXIT_FAILURE;
