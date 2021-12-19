@@ -172,7 +172,7 @@ void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr
         color[i] = WHITE;
     }
 
-    (*distArr)[source] = (*G)[source];
+    (*distArr)[source] = 0; // was (*G)[source];
     (*predArr)[source] = INT_MAX;
     //color[source] = BLACK;
 
@@ -199,6 +199,12 @@ void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr
         }
     }
 
+}
+
+void computeExitTimes(short**G, short **dim, int **distArr) {
+    for (size_t i = 0; i < (*dim)[1]; i++) {
+
+    }
 }
 
 int getIndex(short *dim[2], short row, short column) {
