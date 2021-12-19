@@ -212,7 +212,7 @@ int main(int argc, char **argv) {
 
     return EXIT_SUCCESS;
 }
-
+//./outputs/4_5.t ./outputs/4_5.f ./outputs/4_5.p
 
 
 void dijkstra(short **G, short *dim[2], short **CA, int **distArr, int **predArr, int source) {
