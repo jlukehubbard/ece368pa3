@@ -152,6 +152,7 @@ int main(int argc, char **argv) {
         fprintf(stdout, "%d:\n", (int) i);
         fprintIntGraph(stdout, &distanceArrays[i], dim);
         fprintIntGraph(stdout, &predecessorArrays[i], dim);
+        fprintFastest(stdout, &distanceArrays[i], dim);
     }
 
     /**/
