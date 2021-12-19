@@ -535,6 +535,8 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
     }
 
     //fastest times file
+    fseek(timefile, 0, SEEK_SET);
+    fseek(pathfile, 0, SEEK_SET);
     fwrite(&(*dim)[1], sizeof(short), 1, timefile);
     fwrite(fastestTimes, sizeof(int), (*dim)[1], timefile);
 
@@ -553,13 +555,13 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
     for (int i = count; i >= 0; i--) {
         row = getRow(dim, points[i]);
         col = getCol(dim, points[i]);
-        fprintf(stream, "%hd %hd\n", row, col);
+        //fprintf(stream, "%hd %hd\n", row, col);
         fwrite(&row, sizeof(short), 1, pathfile);
         fwrite(&col, sizeof(short), 1, pathfile);
     }
 
 
-    fprintf(stream, "%d\n", count);
+    //fprintf(stream, "%d\n", count);
 }
 
 
