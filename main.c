@@ -561,7 +561,7 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
     }
 
 
-    fprintf(stdout, "%d\n", count);
+    //fprintf(stdout, "%d\n", count);
 }
 
 
