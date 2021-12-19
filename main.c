@@ -155,7 +155,7 @@ int main(int argc, char **argv) {
 
 
 
-    #define NOGRID
+    //#define NOGRID
     #ifdef NOGRID
 
     if (argc != 2) {
@@ -511,7 +511,7 @@ void fwriteFastPath(FILE *timefile, FILE *pathfile, int **distanceArrays, int **
 
         fastestTimes[i] = minTime;
         fprintf(stdout, "%d\n", minTime);
-        fprintGraph(stdout, distArr, dim);
+        fprintIntGraph(stdout, distArr, dim);
     }
 
     minTime = INT_MAX;
